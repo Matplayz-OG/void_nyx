@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void</title>
+       <link rel="icon" type="image/png" href="void.png">
+    <script src="tailwind.js"></script>
+    <style>
+	  @font-face {
+	    font-family: 'JetBrains Mono';
+	    src: url('fonts/JetBrainsMono-Light.woff2') format('woff2');
+	    font-weight: 300;
+	  }
+	  @font-face {
+	    font-family: 'JetBrains Mono';
+	    src: url('fonts/JetBrainsMono-Regular.woff2') format('woff2');
+	    font-weight: 400;
+	  }
+	  @font-face {
+	    font-family: 'JetBrains Mono';
+	    src: url('fonts/JetBrainsMono-Medium.woff2') format('woff2');
+	    font-weight: 500;
+	  }
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #000000;
+            color: #e5e5e5;
+            height: 100vh;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .search-bar {
+            box-shadow: 0 0 0 1px rgba(229, 229, 229, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+        .search-bar:hover {
+            box-shadow: 0 0 0 1px rgba(229, 229, 229, 0.3);
+        }
+        .quick-link {
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+        }
+        .quick-link:hover {
+            opacity: 1;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+.quick-link::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 150%; /* above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1f1f1f;
+  color: #e5e5e5;
+  padding: 4px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  border-radius: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+
+.quick-link:hover::after {
+  opacity: 1;
+}
+:root {
+  --bg-color: #000;
+  --text-color: #e5e5e5;
+  --accent-color: #1f1f1f;
+  --input-bg: #000;
+  --input-border: #2d2d2d;
+}
+
+body.light {
+  --bg-color: #f0f8ff;
+  --text-color: #003366;
+  --accent-color: #cce6ff;
+  --input-bg: #ffffff;
+  --input-border: #99ccff;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.search-bar {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+}
+input::placeholder {
+  color: var(--text-color);
+  opacity: 0.5;
+}
+
+input {
+  color: var(--text-color);
+}
+
+    </style>
+</head>
+<body class="flex flex-col items-center pt-[150px] fade-in" id="main-body">
+<button id="theme-toggle" class="absolute top-6 right-6 p-2 rounded-md border border-gray-700 hover:border-white transition-all">
+  <span id="theme-icon"☀</span>
+</button>
+    <div class="flex flex-col items-center justify-center w-full max-w-2xl space-y-12">
+        <!-- Clock & Date -->
+        <div class="text-center">
+            <div id="time" class="text-6xl md:text-7xl font-light tracking-tighter"></div>
+            <div id="date" class="text-lg opacity-70 mt-2"></div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="w-full">
+            <form action="https://www.google.com/search" method="get" target="_blank" class="w-full">
+                <div class="relative w-full">
+                    <input 
+                        type="text" 
+                        name="q" 
+                        placeholder="Search Google" 
+                        autocomplete="off"
+                        class="search-bar w-full bg-[var(--input-bg)] rounded-full py-4 px-6 text-lg focus:outline-none focus:ring-0 border border-gray-800 hover:border-gray-600 transition-colors duration-200"
+                    >
+                    <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 opacity-50 hover:opacity-100 transition-opacity">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-6">
+        <a href="https://youtube.com" target="_blank" class="quick-link relative" data-label="YouTube" id="link-youtube">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+            </svg>
+        </a>
+<a href="https://netflix.com" target="_blank" class="quick-link relative" data-label="Netflix" id="link-netflix">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2h3v20H6zM15 2h3v20h-3zM9 2h6v5H9z" />
+    </svg>
+</a>
+<a href="https://open.spotify.com" target="_blank" class="quick-link relative" data-label="Spotify" id="link-spotify">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 15c3-1 6-1 8 1M7 12c4-1.5 8-1.5 10 1M6 9c5-2 10-2 12 2" />
+    </svg>
+</a>
+        <a href="https://reddit.com" target="_blank" class="quick-link relative" data-label="Reddit" id="link-reddit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </a>
+        <a href="https://mail.google.com" target="_blank" class="quick-link relative" data-label="Gmail" id="link-gmail">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+        </a>
+        <a href="https://chat.openai.com" target="_blank" class="quick-link relative" data-label="ChatGPT" id="link-chatgpt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </a>
+        <a href="https://ocw.mit.edu" target="_blank" class="quick-link relative" data-label="MIT OCW" id="link-mit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+            </svg>
+        </a>
+        <a href="https://practiso.me" target="_blank" class="quick-link relative" data-label="PCM Books" id="link-pcm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+        </a>
+        <a href="https://readyourflow.com" target="_blank" class="quick-link relative" data-label="Books" id="link-books">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+            </svg>
+        </a>
+        <a href="https://migii.net/en/blog/jlpt-n4-books" target="_blank" class="quick-link relative" data-label="N4 Resources" id="link-jlpt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><text x="12" y="16" font-size="10" text-anchor="middle" fill="currentColor">N4</text>
+            </svg>
+        </a>
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
